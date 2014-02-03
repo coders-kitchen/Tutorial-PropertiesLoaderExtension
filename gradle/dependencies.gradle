@@ -1,0 +1,6 @@
+versions = [:]
+libraries = [:]
+
+versions.cdi = '1.1-20130918'
+
+libraries.cdi = "javax.enterprise:cdi-api:${versions.cdi}"
