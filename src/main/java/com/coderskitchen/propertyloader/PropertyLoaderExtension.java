@@ -23,11 +23,11 @@ public class PropertyLoaderExtension implements Extension {
 
 	public <T> void initializePropertyLoading(final @Observes ProcessInjectionTarget<T> pit) {
 		AnnotatedType<T> at = pit.getAnnotatedType();
-		if(!at.isAnnotationPresent(PropertyyFile.class)) {
+		if(!at.isAnnotationPresent(PropertyFile.class)) {
 			return;
 		}
-		PropertyyFile propertyyFile = at.getAnnotation(PropertyyFile.class);
-		String filename = propertyyFile.value();
+		PropertyFile propertyFile = at.getAnnotation(PropertyFile.class);
+		String filename = propertyFile.value();
 		InputStream propertiesStream = getClass().getResourceAsStream("/" + filename);
 		Properties properties = new Properties();
 		try {
@@ -99,9 +99,9 @@ public class PropertyLoaderExtension implements Extension {
 
 	private <T> void assignPropertiesToFields(Set<AnnotatedField<? super T>> fields, Properties properties) {
 		for (AnnotatedField<? super T> field : fields) {
-			if(field.isAnnotationPresent(Propertyy.class)) {
-				Propertyy propertyy = field.getAnnotation(Propertyy.class);
-				Object value = properties.get(propertyy.value());
+			if(field.isAnnotationPresent(Property.class)) {
+				Property property = field.getAnnotation(Property.class);
+				Object value = properties.get(property.value());
 				Field memberField = field.getJavaMember();
 				fieldValues.put(memberField, value);
 			}
